@@ -1,4 +1,5 @@
 from services.localizarEClicar import localizar_e_clicar
+from services.getCellValue import get_cell_value
 import time
 import pyautogui
 import os
@@ -11,11 +12,6 @@ pyautogui.FAILSAFE = True
 # centro_custo = input("Digite o centro de custo: ")
 # codigo_plano_financeiro = input("Digite o código do plano financeiro: ")
 # codigo_forma_pagamento = input("Digite o código da forma de pagamento: ")
-
-numero_documento = "131186"
-codigo_centro_custo = "49"
-codigo_plano_financeiro = "2010103"
-codigo_forma_pagamento = "15"
 
 #Clica no btn novo
 def clica_btn_novo():
@@ -31,7 +27,7 @@ def insere_tipo_documento():
     pyautogui.press("tab")
 
 #Insere o N° do doc
-def insere_n_doc():
+def insere_n_doc(numero_documento):
     time.sleep(1)
     pyautogui.press("tab")
     pyautogui.write(numero_documento)
@@ -45,14 +41,14 @@ def insere_data_vencimento():
     time.sleep(1)
 
 # Calcula a data de hoje mais 10 dias
-def calcula_data_vencimento:
+def calcula_data_vencimento():
     hoje = datetime.today()
     data_futura = hoje + timedelta(days=10)
     data_formatada = data_futura.strftime('%d/%m/%Y')
     pyautogui.write(data_formatada)
 
 #Insere o cento de custo e o plano financeiro
-def insere_prop_despesas():
+def insere_prop_despesas(codigo_centro_custo, codigo_plano_financeiro):
     for _ in range(2):
         pyautogui.press("tab")
 
@@ -90,8 +86,9 @@ def ate_guia_pagamento():
     pyautogui.press("enter")
 
 #Edita o pagamento
-def edita_pagamento():
+def edita_pagamento(codigo_forma_pagamento):
     time.sleep(1)
+    base_path = os.path.join(os.getcwd(), 'static', 'icons').replace('\\', '/')
     btn_lapis = os.path.join(base_path, 'btn_lapis.png').replace('\\', '/')
     localizar_e_clicar(btn_lapis, "btn_lapis")
     time.sleep(1)
@@ -109,6 +106,7 @@ def edita_pagamento():
 
 #Anexo
 def anexo(): 
+    base_path = os.path.join(os.getcwd(), 'static', 'icons').replace('\\', '/')
     for _ in range(8):
         pyautogui.press("tab")
     pyautogui.press("enter")
@@ -128,4 +126,38 @@ def anexo():
     pyautogui.press("enter")
     time.sleep(1)
 
+def reinicia_pagina():
+    pyautogui.press("f5")
+    time.sleep(4)
 
+
+# numero_documento = 
+# codigo_centro_custo = "49"
+# codigo_plano_financeiro = "2010103"
+# codigo_forma_pagamento = "15"
+
+base_path = os.path.join(os.getcwd(), 'static').replace('\\', '/')
+nfsXlsx = os.path.join(base_path, 'relatorio.xlsx').replace('\\', '/')
+
+if not get_cell_value(nfsXlsx, "Relatório", "N", 7) == "Núm/Série":
+    raise CellValueError("O valor da célula na posição N7 da planilha 'Relatório' não é 'Núm/Série'.")
+
+for i in range(8, 18):
+    # Extart N° do documento da celula
+    cell_value = get_cell_value(nfsXlsx, "Relatório", "N", i)
+    if cell_value is not None:
+        numero_documento = cell_value.split('/')[0]
+        print(numero_documento)
+    else:
+        print(f"A célula N{i} está vazia ou não existe.")
+
+    # Faz o lançamento do documento
+    clica_btn_novo()
+
+    # Perguntar ao usuário se deseja continuar
+    continuar = input("Deseja continuar a execução? (s/n): ")
+    if continuar.lower() != 's':
+        print("Execução interrompida pelo usuário.")
+        break
+
+    reinicia_pagina()
