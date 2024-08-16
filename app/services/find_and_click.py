@@ -1,10 +1,8 @@
 import pyautogui
 import time
 import os
-from PIL import Image
 
 def find_and_click(imagem, descricao):
-    base_path = os.path.join(os.getcwd(), 'static', 'icons').replace('\\', '/')
     try:
         try:
             localizacao = pyautogui.locateCenterOnScreen(imagem, confidence=0.8)

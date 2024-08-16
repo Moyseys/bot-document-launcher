@@ -5,4 +5,10 @@ node_modules
 *creditorInfoFiles
 *.pdf
 *.zip
+*.pyc
+__pycache__
 *.json
+*.spec
+*.exe
+build
+dist
