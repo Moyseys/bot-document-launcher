@@ -1,6 +1,7 @@
-from services.get_cell_value import get_cell_value
-from services.logs import add_log, get_last_logged_line
-from services.process_doc import process_doc
+from datetime import datetime
+from services.cad_titulo.get_cell_value import get_cell_value
+from services.cad_titulo.logs import add_log, get_last_logged_line
+from services.cad_titulo.process_doc import process_doc
 
 import pyautogui
 import os
@@ -21,7 +22,7 @@ if not get_cell_value(nfsXlsx, "Relatório", "N", 7) == "Núm/Série":
 start_line = None
 end_line = None
 safety_lok = None
-
+#process_doc(59, 100, 1, nfsXlsx, logs_file_path)
 while(True):
     try:
         choice = int(input(f"\n{Fore.YELLOW}Deseja realizar o lançamento a partir de qual linha do relatório?\n"
@@ -49,4 +50,8 @@ while(True):
         print(f"{Fore.RED}Entrada inválida. Por favor, insira um número inteiro.{Style.RESET_ALL}")
 
 if(start_line and end_line):
+    time_now = datetime.now().time()
+    msg_time = f"\n{Fore.MAGENTA}Horário do inicio da execução: {time_now.strftime("%H:%M:%S")} {Style.RESET_ALL}"
+    print(msg_time)
+
     process_doc(start_line, end_line, safety_lok, nfsXlsx, logs_file_path)

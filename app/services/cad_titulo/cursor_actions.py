@@ -1,7 +1,6 @@
 import time
 import pyautogui
 
-
 def move_cursor_to_center():
     screen_width, screen_height = pyautogui.size()
     center_x = screen_width / 2

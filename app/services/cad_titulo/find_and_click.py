@@ -2,7 +2,8 @@ import pyautogui
 import time
 import os
 
-def find_and_click(imagem, descricao):
+def find_and_click(imagem, descricao
+                   ):
     try:
         try:
             localizacao = pyautogui.locateCenterOnScreen(imagem, confidence=0.8)

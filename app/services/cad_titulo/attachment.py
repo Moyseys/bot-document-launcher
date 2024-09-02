@@ -3,7 +3,7 @@ import time
 import pyautogui
 import pyperclip
 
-from services.cursor_actions import move_cursor_to_center
+from .cursor_actions import move_cursor_to_center
 from colorama import Fore, Style, init
 
 def go_to_nfe_folder():
@@ -20,7 +20,6 @@ def go_to_nfe_folder():
 
 #attachment
 def attachment(document_identifier, is_first): 
-    base_path = os.path.join(os.getcwd(), 'static', 'icons').replace('\\', '/')
     for _ in range(8):
         pyautogui.press("tab")
     pyautogui.press("enter")
