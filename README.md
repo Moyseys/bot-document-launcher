@@ -1,6 +1,6 @@
 # Sienge Title Automation Bot
 
-[Vídeo demonstração](https://1drv.ms/v/s!AtSD-zjYedAQovRpd3B_ehHEJc3XRg?e=sU4Pgu)
+https://github.com/user-attachments/assets/d8156576-15c5-4000-b8a5-6c97711c6ecd
 
 Este bot em Python automatiza o processo de lançamento de títulos no sistema Sienge, utilizando a biblioteca PyAutoGUI para interação com a interface gráfica do usuário. Ele permite que os usuários realizem lançamentos de forma eficiente e sem intervenção manual constante.
 
